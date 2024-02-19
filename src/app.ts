@@ -13,7 +13,6 @@ app.use("/v1", routesV1);
 app.use(routesV1);
 
 const port = process.env.PORT;
-
 app.listen(port, () => {
 	log.info(`App started at http://localhost:${port}`);
 });

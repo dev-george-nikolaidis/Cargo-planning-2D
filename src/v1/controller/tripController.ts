@@ -10,10 +10,10 @@ export async function index(req: Request<{}, {}, { userId: number }>, res: Respo
 
 	try {
 		const [trip] = await db.query<RowDataPacket[]>("SELECT id FROM trips WHERE user_id = ?", [userId]);
-
 		if (trip.length === 0) {
 			return res.status(404).json({ message: "trips not found" });
 		}
+
 		return res.json({
 			trip,
 		});
@@ -35,7 +35,7 @@ export async function show(req: Request<{}, {}, { userId: number; tripId: number
 	try {
 		const [trip] = await db.query<RowDataPacket[]>("SELECT * FROM trips WHERE id = ? AND user_id = ?", [tripId, userId]);
 		const [tripOrders] = await db.query<RowDataPacket[]>(
-			"SELECT trip_id, load_order_number , offload_order_number, quantity_of_pallets, start_destination, final_destination, pallet, customer_id FROM tripOrders WHERE trip_id = ?",
+			"SELECT trip_id, load_order_number , offload_order_number, quantity_of_pallets, start_destination, final_destination, pallet, customer_id FROM triporders WHERE trip_id = ?",
 			[tripId]
 		);
 
